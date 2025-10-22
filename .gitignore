@@ -1,0 +1,23 @@
+# Fichero .gitignore para un proyecto Full-Stack (NestJS + Vite)
+
+# Ignorar dependencias
+node_modules/
+**/node_modules/
+
+# Ignorar ficheros de secretos y configuración local
+.env
+**/.env
+
+# Ignorar logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ignorar carpetas de build y compilación
+dist/
+**/dist/
+.DS_Store
+
+# Ignorar ficheros de caché y configuración de editores
+.vscode/
