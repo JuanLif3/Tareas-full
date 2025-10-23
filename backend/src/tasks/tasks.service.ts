@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './task.entity';
@@ -22,5 +22,14 @@ export class TasksService {
 
   async findAll(): Promise<Task[]> {
     return this.taskRepository.find();
+  }
+
+  // Nuevo metodo para eliminar una tarea por su id
+  async remove(id: string): Promise<void> {
+    const result = await this.taskRepository.delete(id); // Intenta eliminar por ID.
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Tarea con ID "${id}" no encontrada.`);
+    }
   }
 }

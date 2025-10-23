@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Delete, HttpCode, Param } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 
@@ -21,5 +21,12 @@ export class TasksController {
   // La URL final será GET http://localhost:3000/tasks
   findAll() {
     return this.tasksService.findAll();
+  }
+
+  @Delete(':id') // Mapea las peticiones DELETE a /tasks/un-id-aqui
+  @HttpCode(204) // Devuelve "No Contenct", paraa un DELETE exitoso
+  remove(@Param('id') id: string) {
+    // @Param('id') extrae el ID de la URL.
+    return this.tasksService.remove(id);
   }
 }

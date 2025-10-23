@@ -94,11 +94,19 @@ h1 {
 }
 
 .task-item {
+  display:  flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1.5rem;
   background-color: var(--surface-color);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   transition: transform 0.2s;
+}
+
+.task-content {
+  /* Este contenedor se queda con el espacio disponible */
+  flex-grow: 1;
 }
 
 .task-item:hover {
@@ -114,6 +122,22 @@ h1 {
 .task-item p {
   margin: 0;
   opacity: 0.7;
+}
+
+.delete-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background-color: #ff4d4d; /* Un rojo para la acción de eliminar */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 1rem; /* Espacio entre el texto y el botón */
+  transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #e60000;
 }
 
 hr {

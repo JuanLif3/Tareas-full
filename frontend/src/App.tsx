@@ -41,7 +41,20 @@ function App() {
     // Añadimo la nueva tarea a la lista existente sin tener que recargar la pagina
     setTasks([...tasks, newTask]);
   }
+  // Nueva función para manejar la eliminación de una tarea.
+  const handDeleteTask = async (id: string) => {
+    // Preguntamos al usuario para evitar eliminaciones accidentales
+    if (!window.confirm('¿Estas seguro de querer eliminar la tarea?'))
+      return;
 
+  try {
+    await axios.delete(`${API_URL}/${id}`); // Llama al endpoint DELETE
+    // Actualiza eñ espacio local filtrando la tarea eliminada.
+    setTasks(tasks.filter(task => task.id !== id));
+  } catch (error) {
+    console.error(`Error eliminando la tarea:`, error);
+  }
+};
 
   return (
     <div className="app-container">
@@ -54,6 +67,9 @@ function App() {
           <li key={task.id} className="task-item">
             <h2>{task.title}</h2>
             <p>{task.description}</p>
+            <button onClick={() => handDeleteTask(task.id)} className="delete-button">
+              Eliminar
+            </button>
           </li>
         ))}
       </ul>
