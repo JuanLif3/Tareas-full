@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { Task } from '../App';
 
 // La URL base de nuestra API en el backend.
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/tasks';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export function TaskList() {
      // 2. Creamos un estado para guardar el array de tareas.
@@ -14,7 +14,7 @@ export function TaskList() {
     // Definimos una funcion asincrona para obtener los datos
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(`${API_BASE_URL}/tasks`);
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -30,7 +30,7 @@ export function TaskList() {
         return;
 
     try {
-      await axios.delete(`${API_URL}/${id}`); // Llama al endpoint DELETE
+      await axios.delete(`${API_BASE_URL}/tasks/${id}`); // Llama al endpoint DELETE
       // Actualiza eñ espacio local filtrando la tarea eliminada.
       setTasks(tasks.filter(task => task.id !== id));
     } catch (error) {

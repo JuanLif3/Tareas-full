@@ -3,7 +3,7 @@ import axios from "axios";
 import type { Task } from './App' // Importamos la interfaz Task desde App.tsx
  
 // La URL de nuestra API para crear tareas.
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/tasks';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // Definimos las props que recibirá el componente
 interface TaskFormProps {
@@ -24,7 +24,8 @@ export function TaskForm({ onTaskAdded}: TaskFormProps) {
 
         try {
             // Hacemos la peticion POST con los datos del formulario
-            const response = await axios.post(API_URL, { title, description});
+            const response = await axios.post(`${API_BASE_URL}/tasks`, { title, description});
+            
 
             // Llamamos a la función que nos pasaron por props con la nueva tarea.
             onTaskAdded(response.data);
