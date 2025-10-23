@@ -1,79 +1,25 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { TaskForm } from "./TaskForm"; // Importamos el nuevo componente.
+// frontend/src/App.tsx
+import { Outlet } from 'react-router-dom';
+import { Sidebar } from './Sidebar';
 
-// 1. Definimos una 'interfaz' en TypeScript para la Tarea.
-// Esto le dice a nuestro frontend cómo luce el objeto 'Task'.
-
-interface Task {
+// La interfaz Task puede vivir aquí para ser exportada globalmente.
+export interface Task {
   id: string;
   title: string;
   description: string;
   completed: boolean;
 }
 
-// La URL base de nuestra API en el backend.
-const API_URL = 'http://localhost:3000/tasks';
-
 function App() {
-  // 2. Creamos un estado para guardar el array de tareas.
-  // Inicialmente, es un array vacío.
-  const[tasks, setTasks] = useState<Task[]>([]);
-
-  // 3. useEffect se ejecuta una vez cuando el componente se monta.
-  // Es el lugar perfecto para cargar datos iniciales.
-  useEffect(() => {
-    // Definimos una funcion asincrona para obtener los datos
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setTasks(response.data);
-      } catch (error) {
-        console.error("Error fetching tasks:", error); 
-      }
-    };
-
-    fetchTasks(); // Ejecutamos la función.
-  }, []); // El array vacío [] asegura que solo se ejecute una vez.
-
-  // Creamos una funcion para manejar la adicion de una nueva tarea
-  const handleSubmit = (newTask: Task) => {
-    // Añadimo la nueva tarea a la lista existente sin tener que recargar la pagina
-    setTasks([...tasks, newTask]);
-  }
-  // Nueva función para manejar la eliminación de una tarea.
-  const handDeleteTask = async (id: string) => {
-    // Preguntamos al usuario para evitar eliminaciones accidentales
-    if (!window.confirm('¿Estas seguro de querer eliminar la tarea?'))
-      return;
-
-  try {
-    await axios.delete(`${API_URL}/${id}`); // Llama al endpoint DELETE
-    // Actualiza eñ espacio local filtrando la tarea eliminada.
-    setTasks(tasks.filter(task => task.id !== id));
-  } catch (error) {
-    console.error(`Error eliminando la tarea:`, error);
-  }
-};
-
   return (
-    <div className="app-container">
-      <TaskForm onTaskAdded={handleSubmit}></TaskForm>
-      <hr />
-      <h1>Lista de Tareas</h1>
-      {/*  Añadimos el componente del formulario y le pasamos la función */}
-      <ul className="task-list">
-        {tasks.map(task => (
-          <li key={task.id} className="task-item">
-            <h2>{task.title}</h2>
-            <p>{task.description}</p>
-            <button onClick={() => handDeleteTask(task.id)} className="delete-button">
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="app-layout">
+      <Sidebar />
+      <main className="content-area">
+        {/* El componente de la ruta activa se renderizará aquí */}
+        <Outlet />
+      </main>
     </div>
   );
 }
+
 export default App;

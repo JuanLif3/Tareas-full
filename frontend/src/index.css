@@ -15,9 +15,7 @@ body {
   font-family: var(--font-family);
   background-color: var(--background-color);
   color: var(--text-color);
-  display: flex;
-  justify-content: center;
-  padding-top: 60px;
+  min-height: 100vh;
 }
 
 /* 2. Contenedor Principal de la App */
@@ -34,9 +32,55 @@ h1 {
   margin-bottom: 2rem;
 }
 
+/* Estilos del Layout Principal */
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--surface-color);
+  padding: 1.5rem;
+  border-right: 1px solid var(--border-color);
+  flex-shrink: 0; /* Evita que la barra lateral se encoja */
+}
+
+.sidebar-header h2 {
+  text-align: center;
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: 0.8rem 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #3a3a3a;
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 2rem 4rem;
+  overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+}
+
 /* 3. Estilos del Formulario */
 .task-form {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 2rem;
@@ -144,4 +188,48 @@ hr {
     border: none;
     border-top: 1px solid var(--border-color);
     margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  /* Estas reglas se aplicarán solo si el ancho de la pantalla es 768px o menos */
+
+  body {
+    padding-top: 0; /* Eliminamos el padding superior en móviles */
+  }
+
+  .app-layout {
+    /* Cambiamos la dirección para que los elementos se apilen verticalmente */
+    flex-direction: column;
+    height: auto; /* La altura se adaptará al contenido */
+  }
+
+  .sidebar {
+    width: 100%; /* La barra lateral ocupa todo el ancho */
+    height: auto; /* La altura se adapta a su contenido */
+    border-right: none; /* Quitamos el borde derecho */
+    border-bottom: 1px solid var(--border-color); /* Añadimos un borde inferior */
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .sidebar-header {
+    display: none; /* Ocultamos el título "Tasks App" para ahorrar espacio */
+  }
+
+  .sidebar ul {
+    /* Hacemos que los enlaces se muestren en una fila */
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .sidebar ul li a {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .content-area {
+    /* Reducimos el padding en el área de contenido para dar más espacio */
+    padding: 1.5rem 1rem;
+  }
 }
