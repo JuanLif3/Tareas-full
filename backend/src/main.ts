@@ -6,7 +6,7 @@ async function bootstrap() {
 
   // Reemplaza la línea simple por este objeto de configuración:
   app.enableCors({
-    origin: 'http://localhost:5173', // La URL exacta de tu frontend
+    origin: 'https://tareas-full-i91absajb-juanlifes-projects.vercel.app', // La URL exacta de tu frontend
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
