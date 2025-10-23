@@ -1,9 +1,9 @@
 import {  useState } from "react";
 import axios from "axios";
-import { Task } from './App' // Importamos la interfaz Task desde App.tsx
+import type { Task } from './App' // Importamos la interfaz Task desde App.tsx
  
 // La URL de nuestra API para crear tareas.
-const API_URL = 'http://localhost:3000/tasks';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/tasks';
 
 // Definimos las props que recibirá el componente
 interface TaskFormProps {

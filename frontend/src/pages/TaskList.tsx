@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Task } from '../App';
+import type { Task } from '../App';
 
 // La URL base de nuestra API en el backend.
-const API_URL = 'http://localhost:3000/tasks';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/tasks';
 
 export function TaskList() {
      // 2. Creamos un estado para guardar el array de tareas.
