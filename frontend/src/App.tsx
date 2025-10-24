@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 
 // La interfaz Task puede vivir aquí para ser exportada globalmente.
+
 export interface Task {
   id: string;
   title: string;
@@ -12,6 +13,7 @@ export interface Task {
 
 function App() {
   return (
+    // OLA
     <div className="app-layout">
       <Sidebar />
       <main className="content-area">
@@ -21,5 +23,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
