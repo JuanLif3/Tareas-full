@@ -4,8 +4,12 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Se obtiene la URL del frontend desde una variable de entorno.
+  // Esto permite configurar el origen permitido sin modificar el código.
+  const corsOrigin = process.env.CORS_ORIGIN;
+
   app.enableCors({
-    origin: 'https://tareas-full-i91absajb-juanlifes-projects.vercel.app',
+    origin: corsOrigin, // Usamos la variable para configurar dinámicamente el origen.
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
@@ -14,6 +18,6 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
 
   await app.listen(port);
-  console.log(`Application is running on port: ${port}`);
+  console.log(`Application is running on port: ${port}`); // Feedback claro del puerto en ejecución.
 }
 bootstrap();
